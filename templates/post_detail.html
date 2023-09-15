@@ -1,5 +1,4 @@
 {% extends 'base.html' %} {% block content %}
-
 {% load crispy_forms_tags %}
 
 <div class="masthead">
@@ -37,26 +36,20 @@
                     <div class="col-1">
                         <strong>
                             {% if user.is_authenticated %}
-                            <form action="{% url 'post_like' post.slug %}" class="d-inline" method="POST">
+                            <form class="d-inline" action="{% url 'post_like' post.slug %}" method="POST">
                                 {% csrf_token %}
                                 {% if liked %}
-
-                                <button class="btn-like" type="submit" name="blogpost_id" value="{{post.slug}}"><i class="fas fa-heart"></i></button>
-
+                                <button type="submit" name="blogpost_id" value="{{post.slug}}" class="btn-like"><i class="fas fa-heart"></i></button>
                                 {% else %}
-
-                                <button class="btn-like" type="submit" name="blogpost_id" value="{{post.slug}}"><i class="far fa-heart"></i></button>
-                                
+                                <button type="submit" name="blogpost_id" value="{{post.slug}}" class="btn-like"><i class="far fa-heart"></i></button>
                                 {% endif %}
-
                             </form>
                             {% else %}
-
                             <span class="text-secondary"><i class="far fa-heart"></i></span>
                             {% endif %}
-                            <span class="text-secondary">{{ post.number_of_likes }}</span>
+                        <!-- The number of likes goes before the closing strong tag -->
+                        <span class="text-secondary">{{ post.number_of_likes }} </span>
                         </strong>
-                        
                     </div>
                     <div class="col-1">
                         {% with comments.count as total_comments %}
@@ -101,10 +94,9 @@
                 <!-- For later -->
                 {% if commented %}
                 <div class="alert alert-success" role="alert">
-                    Your comment is awaiting for approval
+                    Your comment is awaiting approval
                 </div>
                 {% else %}
-
                 {% if user.is_authenticated %}
 
                 <h3>Leave a comment:</h3>
@@ -114,7 +106,6 @@
                     {% csrf_token %}
                     <button type="submit" class="btn btn-signup btn-lg">Submit</button>
                 </form>
-
                 {% endif %}
                 {% endif %}
             </div>
